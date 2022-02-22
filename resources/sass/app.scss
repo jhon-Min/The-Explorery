@@ -1,0 +1,40 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+
+$primary: #0c6971;
+$border-radius: 1rem;
+$border-radius-lg: 2rem;
+$btn-padding-x-lg: 2rem;
+
+// Typography
+$font-family-sans-serif: "Montserrat", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Bootstrap & other libraries
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+// Css Class
+.h-350 {
+    height: 350px;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+}
+
+.cover-img {
+    height: 350px;
+    object-fit: cover;
+}
+
+.post {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 1.5rem;
+}
+
+.post:last-child {
+    border-bottom: none;
+}
