@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(["index", "show"]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +23,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->route('index');
     }
 
     /**
@@ -67,7 +73,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return redirect()->route('detail', $post->slug);
     }
 
     /**
@@ -78,7 +84,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        Gate::authorize('update', $post);
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -90,7 +97,27 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $request->validate([
+            "title" => "required|min:3",
+            "description" => "required|min:3",
+            "cover" => "nullable|file|mimes:png,jpg|max:15000",
+        ]);
+
+        $post->title = $request->title;
+        $post->slug = Str::slug($post->title);
+        $post->description = $request->description;
+        $post->excerpt = Str::words($request->description, 50);
+
+        if ($request->hasFile('cover')) {
+            Storage::delete("public/cover/" . $post->cover);
+            $newName = "cover_" . uniqid() . "." . $request->file('cover')->extension();
+            $request->file('cover')->storeAs("public/cover", $newName);
+            $post->cover = $newName;
+        }
+
+        $post->update();
+
+        return redirect()->route('detail', $post->slug);
     }
 
     /**
@@ -101,6 +128,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Storage::delete("public/cover/" . $post->cover);
+        $post->delete();
+
+        return redirect()->route('index');
     }
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('index');
+Route::get('/detail/{slug}', [PageController::class, 'detail'])->name('detail');
 
 Auth::routes();
 

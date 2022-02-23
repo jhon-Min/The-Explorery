@@ -2,7 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
 
 $primary: #0c6971;
-$border-radius: 1rem;
+$border-radius: 1.5rem;
+$btn-padding-x: 1.5rem;
 $border-radius-lg: 2rem;
 $btn-padding-x-lg: 2rem;
 
@@ -33,6 +34,10 @@ $line-height-base: 1.6;
 .post {
     border-bottom: 1px solid $border-color;
     padding-bottom: 1.5rem;
+}
+
+.post-detail {
+    white-space: pre-line;
 }
 
 .post:last-child {
