@@ -24,7 +24,16 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "title" => "required|min:3",
+            "description" => "required|min:3",
+            "cover" => "nullable|file|mimes:png,jpg|max:15000",
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "title.required" => "ခေါင်းစဥ်ထည့်အုန်း ငါးကောင်း "
         ];
     }
 }

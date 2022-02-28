@@ -30,7 +30,9 @@
                 </div>
 
                 <div class="mb-4">
-                    <img src="{{ asset('storage/cover/'. $post->cover) }}" id="coverPreview" class="cover-img w-100 rounded"
+                    <img src="{{ asset('storage/cover/'. $post->cover) }}" id="coverPreview" class="cover-img w-100 rounded @error('cover')
+                        border border-danger
+                    @enderror"
                         alt="">
                     <input type="file" name="cover" class="d-none" id="cover">
                     @error('cover')

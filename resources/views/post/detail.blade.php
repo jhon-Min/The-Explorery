@@ -18,6 +18,64 @@
                         {{ $post->description }}
                     </p>
 
+                    <div class="mb-5">
+                        <h4 class="text-center fw-bold mb-4">Users Comment</h4>
+                        <div class="row justify-content-center">
+
+                            <div class="col-lg-8">
+
+                                <div class="comments">
+
+                                    @forelse($post->comments as $comment)
+                                    <div class="border rounded p-3 mb-3">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <div class="d-flex">
+                                                <img src="{{ asset($comment->user->profile_photo) }}" class="user-img rounded-circle" alt="">
+                                                <p class="mb-0 ms-2 small">
+                                                    {{ $comment->user->name }}
+                                                    <br>
+                                                    <i class="fas fa-calendar"></i>
+                                                    {{ $comment->created_at->diffforhumans() }}
+                                                </p>
+                                            </div>
+                                            @can('delete',$comment)
+                                            <form class="" method="post" action="{{ route('comment.destroy',$comment->id) }}">
+                                                @csrf
+                                                @method('delete')
+                                                <button class="btn btn-outline-danger rounded-circle btn-sm">
+                                                    <i class="fas fa-trash-alt "></i>
+                                                </button>
+                                            </form>
+                                            @endcan
+                                        </div>
+
+                                        <p class="mb-0">
+                                            {{ $comment->text }}
+                                        </p>
+                                    </div>
+                                    @empty
+                                        <p class="text-center">There is no Comment</p>
+                                    @endforelse
+
+                                </div>
+
+                    @auth
+                    <form action="{{ route('comment.store') }}" method="post" id="comment-create" class="mb-4">
+                        @csrf
+                        <input type="hidden" name="post_id"  value="{{ $post->id }}">
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control @error('text') is-invalid @enderror" name="text" placeholder="Leave a comment here" style="height: 150px" id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Comments</label>
+                            @error('text')
+                            <div class="invalid-feedback ps-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary">Comment</button>
+                        </div>
+                    </form>
+                    @endauth
+
                     <div class="d-flex flex-column justify-content-between border p-4 rounded">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex">

@@ -44,12 +44,6 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $request->validate([
-            "title" => "required|min:3",
-            "description" => "required|min:3",
-            "cover" => "required|file|mimes:png,jpg|max:15000",
-        ]);
-
         $newName = "cover_" . uniqid() . "." . $request->file('cover')->extension();
         $request->file('cover')->storeAs("public/cover", $newName);
 
@@ -97,12 +91,6 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $request->validate([
-            "title" => "required|min:3",
-            "description" => "required|min:3",
-            "cover" => "nullable|file|mimes:png,jpg|max:15000",
-        ]);
-
         $post->title = $request->title;
         $post->slug = Str::slug($post->title);
         $post->description = $request->description;
