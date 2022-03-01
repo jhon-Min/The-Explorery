@@ -19,7 +19,7 @@
             </div>
             @endauth
 
-            <div class="posts">
+            <div class="posts mb-5">
                 @forelse($posts as $post)
 
                 <div class="post mb-4">
@@ -57,6 +57,10 @@
                 @empty
 
                 @endforelse
+            </div>
+
+            <div class="d-flex justify-content-center">
+                {{ $posts->links() }}
             </div>
         </div>
     </div>

@@ -51,7 +51,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ route('edit-profile') }}">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{{ route('edit-password') }}">Change Password</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

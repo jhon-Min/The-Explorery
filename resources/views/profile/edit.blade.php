@@ -11,9 +11,15 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="{{ asset(auth()->user()->profile_photo) }}" alt="" class="profile-img border border-2 border-primary my-3 @error('profile_photo')
-                            border border-2 border-danger
-                        @enderror">
+                            <div class=" position-relative mb-3">
+                                <img src="{{ asset(auth()->user()->profile_photo) }}" alt="" class="profile-img border border-2 border-primary my-3 @error('profile_photo')
+                                border border-2 border-danger
+                                @enderror">
+                                <button class="btn btn-sm btn-primary position-absolute profile-btn">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </button>
+                            </div>
+
                             <p class="fw-bold h4">{{ auth()->user()->name }}</p>
                             <p class="mb-4">{{ auth()->user()->email }}</p>
 
@@ -43,9 +49,10 @@
 @push("scripts")
 <script>
     let profile = document.querySelector(".profile-img");
+    let addBtn = document.querySelector(".profile-btn")
     let input = document.querySelector("#profile-input");
 
-    profile.addEventListener("click",_=>input.click())
+    addBtn.addEventListener("click",_=>input.click())
     input.addEventListener("change",_=>{
         let file = input.files[0];
         let reader = new FileReader();

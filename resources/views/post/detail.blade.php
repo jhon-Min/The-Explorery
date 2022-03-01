@@ -36,7 +36,7 @@
                     @endif
 
                     <div class="mb-5">
-                        {{-- <h4 class="text-center fw-bold mb-4">Users Comment</h4> --}}
+                        <h4 class="text-center fw-bold mb-4">Users Comment</h4>
                         <div class="row justify-content-center">
 
                             <div class="col-lg-8">
@@ -71,7 +71,12 @@
                                         </p>
                                     </div>
                                     @empty
-                                        <p class="text-center">There is no Comment</p>
+                                        <p class="text-center">
+                                            There is no Comment
+                                            @guest
+                                                <a href="{{ route('login') }}">Login</a> to Comment
+                                            @endguest
+                                        </p>
                                     @endforelse
 
                                 </div>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
@@ -53,5 +56,27 @@ class HomeController extends Controller
 
         $user->update();
         return redirect()->back();
+    }
+
+    public function editPassword()
+    {
+        return view('profile.change-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            "old_password" => ['required', new MatchOldPassword],
+            "password" => ['required', 'min:8'],
+            "password_confirmation" => ['same:password']
+        ]);
+
+        $user = new User();
+        $currentUser = $user->find(Auth::id());
+        $currentUser->password = Hash::make($request->password);
+        $currentUser->update();
+        Auth::logout();
+
+        return redirect()->route('login');
     }
 }

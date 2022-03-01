@@ -11307,6 +11307,13 @@ textarea.form-control-lg {
      object-fit: cover;
 }
 
+.profile-btn {
+  bottom: 2px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+}
+
 .cover-img {
   height: 350px;
   -o-object-fit: cover;

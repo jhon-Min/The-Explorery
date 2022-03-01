@@ -3,6 +3,7 @@ window._ = require("lodash");
 try {
     require("bootstrap");
     window.VenoBox = require("venobox/dist/venobox.min");
+    // window.ScrollReveal = require("scrollreveal");
 } catch (e) {}
 
 /**
