@@ -46,11 +46,11 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ auth()->user()->name }}
-                            <img src="{{ asset('default-avatar.png') }}"
-                                class="user-img rounded-circle border border-white border-2 shadow-sm ms-2" alt="">
+                            <img src="{{ asset(auth()->user()->profile_photo) }}"
+                                class="user-img rounded-circle border border-white border-2 shadow-sm ms-2 " alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('edit-profile') }}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="#">Change Password</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -76,6 +76,10 @@
         const logOut = () => {
             document.getElementById('logoutForm').submit();
         }
+
+        new VenoBox({
+            selector: ".venobox",
+        });
     </script>
 
 </body>

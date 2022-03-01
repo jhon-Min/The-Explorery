@@ -15,6 +15,7 @@ $line-height-base: 1.6;
 // Bootstrap & other libraries
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~venobox/dist/venobox.min.css";
 
 // Css Class
 .h-350 {
@@ -24,6 +25,13 @@ $line-height-base: 1.6;
 .user-img {
     width: 40px;
     height: 40px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .cover-img {
@@ -42,4 +50,17 @@ $line-height-base: 1.6;
 
 .post:last-child {
     border-bottom: none;
+}
+
+.gallery-box {
+    height: 95% !important;
+    border-radius: 10px !important;
+}
+
+.post {
+    .gallery-detail {
+        width: 100%;
+        height: 150px;
+        border-radius: $border-radius;
+    }
 }

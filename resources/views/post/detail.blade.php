@@ -18,8 +18,25 @@
                         {{ $post->description }}
                     </p>
 
+                    @if($post->galleries->count())
+                       <div class="border rounded mb-5">
+                            <div class="row g-4 p-3">
+                            @forelse ($post->galleries as $gallery)
+                                <div class="col-6 col-md-4 col-lg-3">
+                                    {{-- <img src="{{ asset('storage/gallery/'.$gallery->photo) }}" class="img-fluid rounded" alt=""> --}}
+                                    <a class="venobox" data-gall="gallery" data-maxwidth="600px" href="{{ asset('storage/gallery/'.$gallery->photo) }}">
+                                        <img src="{{ asset('storage/gallery/'.$gallery->photo) }}" class="img-fluid rounded" alt="image alt"/>
+                                    </a>
+                                </div>
+                            @empty
+
+                            @endforelse
+                            </div>
+                       </div>
+                    @endif
+
                     <div class="mb-5">
-                        <h4 class="text-center fw-bold mb-4">Users Comment</h4>
+                        {{-- <h4 class="text-center fw-bold mb-4">Users Comment</h4> --}}
                         <div class="row justify-content-center">
 
                             <div class="col-lg-8">
