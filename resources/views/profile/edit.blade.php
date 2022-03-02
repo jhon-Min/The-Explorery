@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <div class="text-center">
                             <div class=" position-relative mb-3">
-                                <img src="{{ asset(auth()->user()->profile_photo) }}" alt="" class="profile-img border border-2 border-primary my-3 @error('profile_photo')
+                                <img src="{{ isset(Auth::user()->profile_photo) ? asset('storage/profile/'.Auth::user()->profile_photo) : asset('default-avatar.png') }}" alt="" class="profile-img border border-2 border-primary my-3 @error('profile_photo')
                                 border border-2 border-danger
                                 @enderror">
                                 <button class="btn btn-sm btn-primary position-absolute profile-btn">

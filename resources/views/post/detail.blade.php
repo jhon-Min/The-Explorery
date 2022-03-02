@@ -47,7 +47,7 @@
                                     <div class="border rounded p-3 mb-3">
                                         <div class="d-flex justify-content-between mb-3">
                                             <div class="d-flex">
-                                                <img src="{{ asset($comment->user->profile_photo) }}" class="user-img rounded-circle" alt="">
+                                                <img src="{{ isset($comment->user->profile_photo) ? asset('storage/thumbnail/'.$comment->user->profile_photo) : asset('default-avatar.png') }}" class="user-img rounded-circle" alt="">
                                                 <p class="mb-0 ms-2 small">
                                                     {{ $comment->user->name }}
                                                     <br>
@@ -101,7 +101,7 @@
                     <div class="d-flex flex-column justify-content-between border p-4 rounded">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex">
-                                <img src="{{ asset($post->user->profile_photo) }}"
+                                <img src="{{ isset($post->user->profile_photo) ? asset('storage/thumbnail/'.$post->user->profile_photo) : asset('default-avatar.png') }}"
                                     class="user-img rounded-circle" alt="">
                                 <p class="mb-0 ms-2 small">
                                     {{ $post->user->name }}
