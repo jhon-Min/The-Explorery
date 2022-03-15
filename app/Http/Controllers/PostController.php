@@ -6,9 +6,11 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
+use App\Mail\PostMail;
 
 class PostController extends Controller
 {
@@ -44,6 +46,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+
         $newName = "cover_" . uniqid() . "." . $request->file('cover')->extension();
         $request->file('cover')->storeAs("public/cover", $newName);
 
@@ -55,6 +58,10 @@ class PostController extends Controller
         $post->cover = $newName;
         $post->user_id = Auth::id();
         $post->save();
+
+        $postMail = new PostMail($post);
+        $postMail->subject('new post here')->from("thecreatormm@mms-student.online", "New Explore");
+        Mail::to('minnyisay@gmail.com')->send($postMail);
 
         return redirect()->route('index');
     }
