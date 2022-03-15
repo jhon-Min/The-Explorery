@@ -19,17 +19,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('index');
-Route::get('/detail/{slug}', [PageController::class, 'detail'])->name('detail');
 
-Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::resource('post', PostController::class);
-Route::resource('comment', CommentController::class);
-Route::resource('gallery', GalleryController::class);
+Auth::routes(['verify' => true]);
 
-// Profile
-Route::get('edit-profile', [HomeController::class, 'editProfile'])->name('edit-profile');
-Route::post('update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
-Route::get('change-password', [HomeController::class, 'editPassword'])->name('edit-password');
-Route::post('update-password', [HomeController::class, 'updatePassword'])->name('update-password');
+Route::middleware('verified')->group(function () {
+    Route::get('/detail/{slug}', [PageController::class, 'detail'])->name('detail');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('post', PostController::class);
+    Route::resource('comment', CommentController::class);
+    Route::resource('gallery', GalleryController::class);
+
+    // Profile
+    Route::get('edit-profile', [HomeController::class, 'editProfile'])->name('edit-profile');
+    Route::post('update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
+    Route::get('change-password', [HomeController::class, 'editPassword'])->name('edit-password');
+    Route::post('update-password', [HomeController::class, 'updatePassword'])->name('update-password');
+});

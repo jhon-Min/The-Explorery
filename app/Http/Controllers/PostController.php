@@ -59,9 +59,10 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->save();
 
-        $postMail = new PostMail($post);
-        $postMail->subject('new post here')->from("thecreatormm@mms-student.online", "New Explore");
-        Mail::to('minnyisay@gmail.com')->send($postMail);
+        $mailUsers = ['minnyisay@gmail.com', 'kwatzee7@gmail.com'];
+        foreach ($mailUsers as $mailUser) {
+            Mail::to($mailUser)->later(now()->addSecond(10), new PostMail($post));
+        }
 
         return redirect()->route('index');
     }
