@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Mail\PostMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
-use App\Mail\PostMail;
+use App\Jobs\CreateFileJob;
 
 class PostController extends Controller
 {
@@ -49,6 +50,8 @@ class PostController extends Controller
 
         $newName = "cover_" . uniqid() . "." . $request->file('cover')->extension();
         $request->file('cover')->storeAs("public/cover", $newName);
+
+        CreateFileJob::dispatch($newName)->delay(now()->addSecond(10));
 
         $post = new Post();
         $post->title = $request->title;

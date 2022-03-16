@@ -19,12 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('index');
-
+Route::get('/detail/{slug}', [PageController::class, 'detail'])->name('detail');
 
 Auth::routes(['verify' => true]);
 
 Route::middleware('verified')->group(function () {
-    Route::get('/detail/{slug}', [PageController::class, 'detail'])->name('detail');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('post', PostController::class);
     Route::resource('comment', CommentController::class);
