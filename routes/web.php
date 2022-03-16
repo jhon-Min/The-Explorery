@@ -30,8 +30,10 @@ Route::middleware('verified')->group(function () {
     Route::resource('gallery', GalleryController::class);
 
     // Profile
-    Route::get('edit-profile', [HomeController::class, 'editProfile'])->name('edit-profile');
-    Route::post('update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
-    Route::get('change-password', [HomeController::class, 'editPassword'])->name('edit-password');
-    Route::post('update-password', [HomeController::class, 'updatePassword'])->name('update-password');
+    Route::prefix('user')->group(function () {
+        Route::get('edit-profile', [HomeController::class, 'editProfile'])->name('edit-profile');
+        Route::post('update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
+        Route::get('change-password', [HomeController::class, 'editPassword'])->name('edit-password');
+        Route::post('update-password', [HomeController::class, 'updatePassword'])->name('update-password');
+    });
 });

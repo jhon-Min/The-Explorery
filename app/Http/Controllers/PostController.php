@@ -127,7 +127,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        Storage::delete("public/cover/" . $post->cover);
+        Storage::delete(["public/cover/$post->cover", "public/cover/large_$post->cover", "public/cover/preview_$post->cover", "public/cover/square_$post->cover",]);
         $post->delete();
 
         return redirect()->route('index');

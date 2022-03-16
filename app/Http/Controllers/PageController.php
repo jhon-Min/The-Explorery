@@ -9,7 +9,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest('id')->paginate(5);
+        $posts = Post::latest('id')->get();
         return view('index', compact('posts'));
     }
 
