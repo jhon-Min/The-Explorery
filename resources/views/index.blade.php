@@ -9,13 +9,14 @@
         <div class="row justify-content-center">
             <div class="col-10 col-xl-8">
                 @auth
-                    <div class="border rounded-3 p-4 d-flex justify-content-between align-items-center mb-4">
+                    <div
+                        class="border rounded-3 p-4 d-md-flex text-center text-md-left justify-content-md-between align-items-md-center mb-4">
                         <h4 class="text-black-50">
                             Welcome
                             <br>
                             <span class="fw-bold text-dark">{{ auth()->user()->name }}</span>
                         </h4>
-                        <a href="{{ route('post.create') }}" class="btn btn-primary btn-lg">Create Post</a>
+                        <a href="{{ route('post.create') }}" class="btn btn-primary btn-lg mt-3 mt-md-0">Create Post</a>
                     </div>
                 @endauth
 
